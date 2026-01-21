@@ -3,16 +3,16 @@ include '../db.php';
 
 header('Content-Type: application/json');
 
-$id = $_POST['id'];
+$id = $_POST['id_user'];
 
-$stmt = $conn->prepare("DELETE FROM tb_mahasiswa WHERE id = ?");
+$stmt = $conn->prepare("DELETE FROM users WHERE id_user = ?");
 $stmt->bind_param("i", $id);
 
 if ($stmt->execute()) {
 
     echo json_encode([
         "status"  => "success",
-        "message" => "Data berhasil dihapus"
+        "message" => "akun berhasil dihapus",
     ]);
 
 } else {

@@ -8,7 +8,7 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-W
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "api_db_kampus";
+$dbname = "rise_clean";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

@@ -5,15 +5,15 @@ header('Content-Type: application/json');
 
 $data = [];
 
-if (isset($_GET['nim']) || isset($_GET['id'])) {
+if (isset($_GET['id_user']) || isset($_GET['id'])) {
 
-    if (isset($_GET['nim'])) {
-        $nim = $_GET['nim'];
-        $stmt = $conn->prepare("SELECT * FROM tb_mahasiswa WHERE nim = ?");
+    if (isset($_GET['id_user'])) {
+        $nim = $_GET['id_user'];
+        $stmt = $conn->prepare("SELECT * FROM users WHERE id_user = ?");
         $stmt->bind_param("s", $nim);
     } else {
         $id = $_GET['id'];
-        $stmt = $conn->prepare("SELECT * FROM tb_mahasiswa WHERE id = ?");
+        $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
         $stmt->bind_param("i", $id);
     }
 
@@ -29,7 +29,7 @@ if (isset($_GET['nim']) || isset($_GET['id'])) {
 } else {
 
     // Ambil semua data
-    $sql = "SELECT * FROM tb_mahasiswa";
+    $sql = "SELECT * FROM users";
     $result = $conn->query($sql);
 
     while ($row = $result->fetch_assoc()) {

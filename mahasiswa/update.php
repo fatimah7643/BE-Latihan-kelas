@@ -3,18 +3,19 @@ include '../db.php';
 
 header('Content-Type: application/json');
 
-$id      = $_POST['id'];
-$nim     = $_POST['nim'];
-$nama    = $_POST['nama'];
-$alamat  = $_POST['alamat'];
-$no_telp = $_POST['no_telp'];
+$id = (int) $_POST['id_user'];
+$nama    = $_POST['nama_lengkap'];
+$email  = $_POST['email'];
+$poin  = (int)$_POST['total_point'];
+$level = $_POST['level'];
+
 
 $stmt = $conn->prepare("
-    UPDATE tb_mahasiswa 
-    SET nim = ?, nama = ?, alamat = ?, no_telp = ?
-    WHERE id = ?
+    UPDATE users 
+    SET nama_lengkap = ?, email = ?, total_point = ?, level = ?
+    WHERE id_user = ?
 ");
-$stmt->bind_param("ssssi", $nim, $nama, $alamat, $no_telp, $id);
+$stmt->bind_param("ssisi", $nama, $email, $poin, $level, $id);
 
 if ($stmt->execute()) {
 
@@ -22,11 +23,11 @@ if ($stmt->execute()) {
         "status"  => "success",
         "message" => "Data berhasil diperbarui",
         "data"    => [
-            "id"      => $id,
-            "nim"     => $nim,
-            "nama"    => $nama,
-            "alamat"  => $alamat,
-            "no_telp" => $no_telp
+            "id_user"      => $id,
+            "nama_lengkap" => $nama,
+            "email"        => $email,
+            "total_point"  => $poin,
+            "level"        => $level
         ]
     ]);
 

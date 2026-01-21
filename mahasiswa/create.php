@@ -3,27 +3,30 @@ include_once '../db.php';
 
 header('Content-Type: application/json');
 
-$nim     = $_POST['nim'];
-$nama    = $_POST['nama'];
-$alamat  = $_POST['alamat'];
-$no_telp = $_POST['no_telp'];
+
+$id = (int) $_POST['id_user'];
+$nama    = $_POST['nama_lengkap'];
+$email  = $_POST['email'];
+$poin  = (int)$_POST['total_point'];
+$level = $_POST['level'];
+
 
 $stmt = $conn->prepare("
-    INSERT INTO tb_mahasiswa (nim, nama, alamat, no_telp)
-    VALUES (?, ?, ?, ?)
-");
-$stmt->bind_param("ssss", $nim, $nama, $alamat, $no_telp);
+    INSERT INTO users (id_user, nama_lengkap, email, total_point, level)
+    VALUES (?, ?, ?, ?, ?)");
+$stmt->bind_param("issis", $id, $nama, $email, $poin, $level);
 
 if ($stmt->execute()) {
 
     echo json_encode([
         "status"  => "success",
-        "message" => "Data berhasil ditambahkan",
+        "message" => "User berhasil ditambahkan",
         "data"    => [
-            "nim"     => $nim,
-            "nama"    => $nama,
-            "alamat"  => $alamat,
-            "no_telp" => $no_telp
+            "id" => $id,
+            "nama_lengkap" => $nama,
+            "email"        => $email,
+            "total_point"  => $poin,
+            "level"        => $level
         ]
     ]);
 
